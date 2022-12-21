@@ -2,6 +2,7 @@
 import re
 import requests
 from bs4 import BeautifulSoup
+import mysql.connector
 
 URL = 'https://www.worldometers.info/geography/alphabetical-list-of-countries/'
 
@@ -32,9 +33,38 @@ def func():
 
     print(country_list)
     print(population_list)
+
+    # Create dict with values
     dict_list = dict(zip(country_list, population_list))
     print(dict_list)
+
+    # Create tuples from lists
+    country_tuple = tuple(country_list)
+    population_tuple = tuple(population_list)
+
+    # Create list with tuples
+    list_with_tuple = list(zip(country_tuple, population_tuple))
+    print(list_with_tuple)
+
+
+def sql_connection():
+    """ Database creation """
+    mydb = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        passwd='1234Pass',
+        database='pythonparser'
+    )
+
+    my_cursor = mydb.cursor()
+
+    # Database creation
+    #my_cursor.execute("CREATE DATABASE pythonparser")
+
+    # Table creation
+    #my_cursor.execute("CREATE TABLE world (name VARCHAR(255), population INTEGER(16))")
 
 
 if __name__ == '__main__':
     func()
+    sql_connection()
