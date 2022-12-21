@@ -32,8 +32,18 @@ def func():
 
     print(country_list)
     print(population_list)
+
+    # Create dict with values
     dict_list = dict(zip(country_list, population_list))
     print(dict_list)
+
+    # Create tuples from lists
+    country_tuple = tuple(country_list)
+    population_tuple = tuple(population_list)
+
+    # Create list with tuples
+    list_with_tuple = list(zip(country_tuple, population_tuple))
+    print(list_with_tuple)
 
 
 if __name__ == '__main__':
