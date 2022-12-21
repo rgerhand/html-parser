@@ -1,12 +1,16 @@
+""" Import modules """
+import re
 import requests
 from bs4 import BeautifulSoup
 
+URL = 'https://www.worldometers.info/geography/alphabetical-list-of-countries/'
+
 
 def func():
-    url = 'https://www.worldometers.info/geography/' \
-          'alphabetical-list-of-countries/'
-    url_req = requests.get(url).text
-    soup = BeautifulSoup(url_req, 'html.parser')
+    """ Return a dictionary created from two lists """
+
+    url_rsp = requests.get(URL).text
+    soup = BeautifulSoup(url_rsp, 'html.parser')
 
     table_body = soup.find('tbody')
     rows = table_body.find_all('tr')
@@ -14,26 +18,23 @@ def func():
     population_list = []
     for row in rows:
         cols = row.find_all('td')
-        td_country = cols[1]
-        country = (str(td_country).strip('<td style="font-weight: bold; '
-                                    'font-size:15px">').rstrip('</'))
-        country_list.append(country)
+        country_index = 1
+        td_country = cols[country_index]
+        country_reg = re.findall("\">(.*)</td>", str(td_country))
+        country_list.append(str(country_reg).strip('[\'').strip('\']'))
 
     for row in rows:
         cols = row.find_all('td')
-        td_population = cols[2]
-        population = ''.join(filter(str.isdigit, str(td_population)))
-        population_list.append(population)
+        population_index = 2
+        td_population = cols[population_index]
+        population_reg = re.findall("\">([1-9].*)</a>", str(td_population))
+        population_list.append(str(population_reg).strip('[\'').strip('\']'))
 
     print(country_list)
     print(population_list)
-    dict_list = {}
-    for key in range(len(country_list)):
-        dict_list[country_list[key]] = population_list[key]
+    dict_list = dict(zip(country_list, population_list))
     print(dict_list)
-    #print(dict_list['Argentina'])
+
 
 if __name__ == '__main__':
     func()
-
-
