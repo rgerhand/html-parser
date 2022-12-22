@@ -35,7 +35,7 @@ def func():
     #print(population_list)
 
     # Create dict with values
-    dict_list = dict(zip(country_list, population_list))
+    #dict_list = dict(zip(country_list, population_list))
     #print(dict_list)
 
     # Create tuples from lists
@@ -51,14 +51,14 @@ def func():
 
 def sql_connection():
     """ Database creation """
-    mydb = mysql.connector.connect(
+    my_db = mysql.connector.connect(
         host='localhost',
         user='root',
         passwd='1234Pass',
         database='pythonparser'
     )
 
-    my_cursor = mydb.cursor()
+    my_cursor = my_db.cursor()
 
     # Database creation
     #my_cursor.execute("CREATE DATABASE pythonparser")
