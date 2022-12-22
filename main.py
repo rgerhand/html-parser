@@ -31,12 +31,12 @@ def func():
         population_reg = re.findall("\">([1-9].*)</a>", str(td_population))
         population_list.append(str(population_reg).strip('[\'').strip('\']'))
 
-    print(country_list)
-    print(population_list)
+    #print(country_list)
+    #print(population_list)
 
     # Create dict with values
     dict_list = dict(zip(country_list, population_list))
-    print(dict_list)
+    #print(dict_list)
 
     # Create tuples from lists
     country_tuple = tuple(country_list)
@@ -44,7 +44,9 @@ def func():
 
     # Create list with tuples
     list_with_tuple = list(zip(country_tuple, population_tuple))
-    print(list_with_tuple)
+    #print(list_with_tuple)
+
+    return list_with_tuple
 
 
 def sql_connection():
