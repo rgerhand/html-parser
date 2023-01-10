@@ -16,10 +16,12 @@ class SqliteClass(DatabaseMain):
 
     @property
     def con(self):
+        """ Connection method"""
         return self._con
 
     @property
     def cursor(self):
+        """ Cursor to database"""
         return self.con.cursor()
 
     def create_database(self, database_name_set):
