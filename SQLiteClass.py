@@ -29,9 +29,13 @@ class SqliteClass(DatabaseMain):
         self._con = sqlite3.connect(database_name_set)
 
 #TODO: **kwargs
-    def create_table(self, table_name, **kwargs):
-        """ Create table with two rows"""
-        self.cursor.execute(f"CREATE TABLE {table_name}(country text, population text)")
+    def create_table(self, table_name, *args):
+        """ Create a table with unlimited number of  columns"""
+        columns = ''
+        for arg in args:
+            columns = ','.join(args)
+        self.cursor.execute(f"CREATE TABLE {table_name} ({columns})")
+        return self
 
 #TODO: **kwargs
     def insert_into_table(self, table_name):
@@ -48,7 +52,8 @@ class SqliteClass(DatabaseMain):
 
 
 sqlite1 = SqliteClass()
-sqlite1.create_database = 'testSET.db'
+sqlite1.create_database('testDB1.db').create_table('table1', 'column1', 'column2', 'column3')
+
 #sqlite1.create_table("test2")
 #sqlite1.create_table("test2")
 #sqlite1.insert_into_table("test2")
