@@ -1,11 +1,24 @@
 import sqlite3
 from DataBaseHandler import DatabaseMain
 
+"""
+    SqliteClass class
+        
+        Methods:
+            - __init__()            - responsible for SqliteClass class initialization
+            - login()               - responsible for login to database
+            - con()                 - responsible for connecting with database
+            - cursor()              - responsible for creating cursor with database
+            - create_database()     - responsible for creating database
+            - create_table()        - responsible for creating table in database
+            - insert_into_table()   - responsible for insert data into table
+"""
+
 
 class SqliteClass(DatabaseMain):
     """ SQLITE Class"""
     def __init__(self, database_name=None):
-        """Sending parameters to create a base and table"""
+        """Sending parameters to create a database"""
         self._con = None
         if database_name != None:
             self.create_database(database_name)
