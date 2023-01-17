@@ -20,7 +20,7 @@ class SqliteClass(DatabaseMain):
     def __init__(self, database_name=None):
         """Sending parameters to create a database"""
         self._con = None
-        if database_name != None:
+        if database_name is not None:
             self.create_database(database_name)
 
     def login(self, **kwargs):
