@@ -42,37 +42,25 @@ class SqliteClass(DatabaseMain):
         self._con = sqlite3.connect(database_name_set)
         return self
 
-#TODO: **kwargs
     def create_table(self, table_name, *args):
         """ Create a table with unlimited number of  columns"""
         columns = ','.join(args)
         self.cursor.execute(f"CREATE TABLE {table_name} ({columns})")
         return self
 
-#TODO: **kwargs
     def insert_into_table(self, table_name, *args):
         """ Insert data into table"""
         data_to_insert = input('Podaj dane: ').split(',')
-        #print(data_to_insert)
         numbers_of_data = len(data_to_insert)
         without_first_char = numbers_of_data - 1
         data = '?' + ' ' + without_first_char * ',?'
         columns = ','.join(args)
         sql_formula = f'''
                 INSERT INTO {table_name} ({columns}) VALUES ({data})'''
-        #print(columns)
         self.cursor.execute(sql_formula, data_to_insert)
         self.con.commit()
         return self
 
-#TODO: switch database
-
 
 sqlite1 = SqliteClass()
 sqlite1.create_database('testDB1.db').insert_into_table('table4', 'test1', 'test2')
-
-#sqlite1.create_table("test2")
-#sqlite1.create_table("test2")
-#sqlite1.insert_into_table("test2")
-#sqlite1.create_database("test1")
-#sqlite1.create_table("world")
