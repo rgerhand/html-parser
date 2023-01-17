@@ -8,7 +8,7 @@ from DataBaseHandler import DatabaseMain
             - __init__()            - responsible for SqliteClass class initialization
             - login()               - responsible for login to database
             - con()                 - responsible for connecting with database
-            - cursor()              - responsible for creating cursor with database
+            - cursor()              - responsible for creating cursor to database
             - create_database()     - responsible for creating database
             - create_table()        - responsible for creating table in database
             - insert_into_table()   - responsible for insert data into table
