@@ -50,9 +50,19 @@ class MySQL(DatabaseMain):
         sql_formula = f'''CREATE TABLE {table_name} ({columns_with_type_without_last_char})'''
         self.cursor.execute(sql_formula)
 
+    def insert_into_table(self, table_name, *args):
+        """ Insert data into table"""
+        data_to_insert = list(input("Insert data: ").split(','))
+        string_with_data = ''
+        for element in data_to_insert:
+            string_with_data += "'" + element + "'" + ','
+        without_last_char = string_with_data[:-1]
+        columns = ', '.join(args)
+        sql_formula = f'''INSERT INTO {table_name} ({columns}) VALUES ({without_last_char})'''
+        self.cursor.execute(sql_formula)
+        self.connection.commit()
+
 
 mysql1 = MySQL()
-mysql1.login(host='localhost', user='root', passwd='1234Pass', database='test1').create_table('table3',
-                                                                                              name='VARCHAR(255)',
-                                                                                              surname='VARCHAR(255)',
-                                                                                              population='VARCHAR(255)')
+mysql1.login(host='localhost', user='root', passwd='1234Pass', database='input').insert_into_table('table1', 'name',
+                                                                                                   'surname')
