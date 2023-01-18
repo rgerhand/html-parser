@@ -9,7 +9,8 @@ from DataBaseHandler import DatabaseMain
             - connection()              - responsible for creating connection
             - cursor()                  - responsible for creating cursor to database
             - create_database()         - responsible for creating database
-            - create_table()            - responsible for creating table in database 
+            - create_table()            - responsible for creating table in database
+            - insert_into_table()       - responsible for insert data into table 
 """
 
 
@@ -49,18 +50,20 @@ class MySQL(DatabaseMain):
         columns_with_type_without_last_char = empty_string[:-1]
         sql_formula = f'''CREATE TABLE {table_name} ({columns_with_type_without_last_char})'''
         self.cursor.execute(sql_formula)
+        return self
 
     def insert_into_table(self, table_name, *args):
         """ Insert data into table"""
         data_to_insert = list(input("Insert data: ").split(','))
         string_with_data = ''
         for element in data_to_insert:
-            string_with_data += "'" + element + "'" + ','
+            string_with_data += "\'" + element + "\'" + ','
         without_last_char = string_with_data[:-1]
         columns = ', '.join(args)
         sql_formula = f'''INSERT INTO {table_name} ({columns}) VALUES ({without_last_char})'''
         self.cursor.execute(sql_formula)
         self.connection.commit()
+        return self
 
 
 mysql1 = MySQL()
