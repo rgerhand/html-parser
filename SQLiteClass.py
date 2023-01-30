@@ -7,7 +7,7 @@ from DataBaseHandler import DatabaseMain
         Methods:
             - __init__()            - responsible for SqliteClass class initialization
             - login()               - responsible for login to database
-            - con()                 - responsible for connecting with database
+            - connection()          - responsible for connecting with database
             - cursor()              - responsible for creating cursor to database
             - create_database()     - responsible for creating database
             - create_table()        - responsible for creating table in database
@@ -28,14 +28,14 @@ class SqliteClass(DatabaseMain):
         pass
 
     @property
-    def con(self):
+    def connection(self):
         """ Connection method"""
         return self._con
 
     @property
     def cursor(self):
         """ Cursor to database"""
-        return self.con.cursor()
+        return self.connection.cursor()
 
     def create_database(self, database_name_set):
         """Set database name"""
@@ -58,7 +58,7 @@ class SqliteClass(DatabaseMain):
         sql_formula = f'''
                 INSERT INTO {table_name} ({columns}) VALUES ({data})'''
         self.cursor.execute(sql_formula, data_to_insert)
-        self.con.commit()
+        self.connection.commit()
         return self
 
 
