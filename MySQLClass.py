@@ -48,7 +48,7 @@ class MySQL(DatabaseMain):
             columns_with_type = '%s %s' % (key, value)
             empty_string += columns_with_type + ','
         columns_with_type_without_last_char = empty_string[:-1]
-        sql_formula = f'''CREATE TABLE {table_name} ({columns_with_type_without_last_char})'''
+        sql_formula = f'CREATE TABLE {table_name} ({columns_with_type_without_last_char})'
         self.cursor.execute(sql_formula)
         return self
 
@@ -60,7 +60,7 @@ class MySQL(DatabaseMain):
             string_with_data += "\'" + element + "\'" + ','
         without_last_char = string_with_data[:-1]
         columns = ', '.join(args)
-        sql_formula = f'''INSERT INTO {table_name} ({columns}) VALUES ({without_last_char})'''
+        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({without_last_char})'
         self.cursor.execute(sql_formula)
         self.connection.commit()
         return self

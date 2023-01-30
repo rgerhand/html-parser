@@ -55,8 +55,7 @@ class SqliteClass(DatabaseMain):
         without_first_char = numbers_of_data - 1
         data = '?' + ' ' + without_first_char * ',?'
         columns = ','.join(args)
-        sql_formula = f'''
-                INSERT INTO {table_name} ({columns}) VALUES ({data})'''
+        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({data})'
         self.cursor.execute(sql_formula, data_to_insert)
         self.connection.commit()
         return self
