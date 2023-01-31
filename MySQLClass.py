@@ -16,13 +16,13 @@ from DataBaseHandler import DatabaseMain
 
 class MySQL(DatabaseMain):
     """ MySQL Class"""
-    def login(self, **kwargs):
+    def login(self, host: str, user: str, passwd: str, database: str = ''):
         """ Login to database"""
         self._connection = mysql.connector.connect(
-            host=kwargs['host'],
-            user=kwargs['user'],
-            passwd=kwargs['passwd'],
-            database=kwargs['database']
+            host=host,
+            user=user,
+            passwd=passwd,
+            database=database
             )
         return self
 
