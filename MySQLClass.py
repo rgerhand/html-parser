@@ -36,19 +36,15 @@ class MySQL(DatabaseMain):
         """ Cursor to database"""
         return self.connection.cursor()
 
-    def create_database(self, database_name):
+    def create_database(self, database_name: str):
         """ Create the database"""
         self.cursor.execute(f"CREATE DATABASE {database_name}")
         return self
 
-    def create_table(self, table_name, **kwargs):
+    def create_table(self, table_name: str, **kwargs: dict):
         """ Create a table with unlimited number of  columns"""
-        empty_string = ''
-        for key, value in kwargs.items():
-            columns_with_type = '%s %s' % (key, value)
-            empty_string += columns_with_type + ','
-        columns_with_type_without_last_char = empty_string[:-1]
-        sql_formula = f'CREATE TABLE {table_name} ({columns_with_type_without_last_char})'
+        columns_with_type = ','.join(f'{column} {column_type}' for column, column_type in kwargs.items())
+        sql_formula = f'CREATE TABLE {table_name} ({columns_with_type})'
         self.cursor.execute(sql_formula)
         return self
 
