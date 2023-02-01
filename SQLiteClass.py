@@ -17,13 +17,7 @@ from DataBaseHandler import DatabaseMain
 
 class SqliteClass(DatabaseMain):
     """ SQLITE Class"""
-    def __init__(self, database_name=None):
-        """Sending parameters to create a database"""
-        self._con = None
-        if database_name is not None:
-            self.create_database(database_name)
-
-    def login(self, **kwargs):
+    def login(self, **kwargs: str):
         """ Login to database"""
         pass
 
@@ -37,18 +31,18 @@ class SqliteClass(DatabaseMain):
         """ Cursor to database"""
         return self.connection.cursor()
 
-    def create_database(self, database_name_set):
+    def create_database(self, database_name: str):
         """Set database name"""
-        self._con = sqlite3.connect(database_name_set)
+        self._con = sqlite3.connect(database_name)
         return self
 
-    def create_table(self, table_name, *args):
+    def create_table(self, table_name: str, *args: str):
         """ Create a table with unlimited number of  columns"""
         columns = ','.join(args)
         self.cursor.execute(f"CREATE TABLE {table_name} ({columns})")
         return self
 
-    def insert_into_table(self, table_name, *args):
+    def insert_into_table(self, table_name: str, *args: str):
         """ Insert data into table"""
         data_to_insert = input('Podaj dane: ').split(',')
         numbers_of_data = len(data_to_insert)
