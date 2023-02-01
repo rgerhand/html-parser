@@ -48,14 +48,14 @@ class MySQL(DatabaseMain):
         self.cursor.execute(sql_formula)
         return self
 
-    def insert_into_table(self, table_name, *args):
+    def insert_into_table(self, table_name: str, *args: str):
         """ Insert data into table"""
+        columns = ', '.join(args)
         data_to_insert = list(input("Insert data: ").split(','))
         string_with_data = ''
         for element in data_to_insert:
             string_with_data += "\'" + element + "\'" + ','
         without_last_char = string_with_data[:-1]
-        columns = ', '.join(args)
         sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({without_last_char})'
         self.cursor.execute(sql_formula)
         self.connection.commit()
