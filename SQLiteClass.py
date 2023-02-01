@@ -5,7 +5,6 @@ from DataBaseHandler import DatabaseMain
     SqliteClass class
         
         Methods:
-            - __init__()            - responsible for SqliteClass class initialization
             - login()               - responsible for login to database
             - connection()          - responsible for connecting with database
             - cursor()              - responsible for creating cursor to database
