@@ -1,8 +1,17 @@
 """ This module is responsible for creating fake data"""
 from faker import Faker
 
+"""
+    Faker generator module
 
-def generate_name(numbers_of_data: int) -> str:
+        Methods:
+            - generate_name()                   - responsible for creating fake names
+            - generate_addresses()              - responsible for creating fake addresses
+            
+"""
+
+
+def generate_name(numbers_of_data: int) -> list:
     """ Create a fake names"""
     faker = Faker('PL')
     list_with_names = []
@@ -15,7 +24,7 @@ def generate_name(numbers_of_data: int) -> str:
     return list_with_names
 
 
-def generate_address(numbers_of_data: int) -> str:
+def generate_address(numbers_of_data: int) -> list:
     """ Create a fake address"""
     faker = Faker('PL')
     list_with_addresses = []
@@ -25,7 +34,3 @@ def generate_address(numbers_of_data: int) -> str:
         list_with_addresses.append(item.replace("\n", ", "))
 
     return list_with_addresses
-
-
-generate_name(3)
-generate_address(2)
