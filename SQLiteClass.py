@@ -16,7 +16,7 @@ from DataBaseHandler import DatabaseMain
 
 class SqliteClass(DatabaseMain):
     """ SQLITE Class"""
-    def login(self, **kwargs: str):
+    def login(self, **kwargs: dict):
         """ Login to database"""
         pass
 
