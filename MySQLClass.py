@@ -1,3 +1,6 @@
+""" This file is responsible for operations executed on MySQL database"""
+from __future__ import annotations
+from typing import Union
 import mysql.connector
 from DataBaseHandler import DatabaseMain
 
@@ -16,7 +19,7 @@ from DataBaseHandler import DatabaseMain
 
 class MySQL(DatabaseMain):
     """ MySQL Class"""
-    def login(self, host: str, user: str, passwd: str, database: str = ''):
+    def login(self, host: str, user: str, passwd: str, database: str = '') -> MySQL:
         """ Login to database"""
         self._connection = mysql.connector.connect(
             host=host,
@@ -27,28 +30,28 @@ class MySQL(DatabaseMain):
         return self
 
     @property
-    def connection(self):
+    def connection(self) -> Union:
         """ Connection method"""
         return self._connection
 
     @property
-    def cursor(self):
+    def cursor(self) -> Union:
         """ Cursor to database"""
         return self.connection.cursor()
 
-    def create_database(self, database_name: str):
+    def create_database(self, database_name: str) -> MySQL:
         """ Create the database"""
         self.cursor.execute(f"CREATE DATABASE {database_name}")
         return self
 
-    def create_table(self, table_name: str, **kwargs: dict):
+    def create_table(self, table_name: str, **kwargs) -> MySQL:
         """ Create a table with unlimited number of  columns"""
         columns_with_type = ','.join(f'{column} {column_type}' for column, column_type in kwargs.items())
         sql_formula = f'CREATE TABLE {table_name} ({columns_with_type})'
         self.cursor.execute(sql_formula)
         return self
 
-    def insert_into_table(self, table_name: str, *args: str):
+    def insert_into_table(self, table_name: str, *args) -> MySQL:
         """ Insert data into table"""
         columns = ', '.join(args)
         data_to_insert = list(input("Insert data: ").split(','))

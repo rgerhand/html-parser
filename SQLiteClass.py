@@ -1,3 +1,5 @@
+""" This file is responsible for operations executed on sqlite3 database"""
+from __future__ import annotations
 import sqlite3
 from DataBaseHandler import DatabaseMain
 
@@ -16,32 +18,32 @@ from DataBaseHandler import DatabaseMain
 
 class SqliteClass(DatabaseMain):
     """ SQLITE Class"""
-    def login(self, **kwargs: dict):
+    def login(self, **kwargs) -> True:
         """ Login to database"""
         pass
 
     @property
-    def connection(self):
+    def connection(self) -> sqlite3.Connection:
         """ Connection method"""
         return self._con
 
     @property
-    def cursor(self):
+    def cursor(self) -> sqlite3.Cursor:
         """ Cursor to database"""
         return self.connection.cursor()
 
-    def create_database(self, database_name: str):
+    def create_database(self, database_name: str) -> SqliteClass:
         """Set database name"""
         self._con = sqlite3.connect(database_name)
         return self
 
-    def create_table(self, table_name: str, *args: str):
+    def create_table(self, table_name: str, *args) -> SqliteClass:
         """ Create a table with unlimited number of  columns"""
         columns = ','.join(args)
         self.cursor.execute(f"CREATE TABLE {table_name} ({columns})")
         return self
 
-    def insert_into_table(self, table_name: str, *args: str):
+    def insert_into_table(self, table_name: str, *args) -> SqliteClass:
         """ Insert data into table"""
         data_to_insert = input('Podaj dane: ').split(',')
         numbers_of_data = len(data_to_insert)

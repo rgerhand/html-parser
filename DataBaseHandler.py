@@ -1,4 +1,4 @@
-""" This file created and interface for databases"""
+""" This file creates the interface for databases"""
 from abc import abstractmethod, ABC
 
 """
@@ -18,7 +18,7 @@ class DatabaseMain(ABC):
     """ Database interface class"""
 
     @abstractmethod
-    def login(self, **kwargs: dict) -> True:
+    def login(self, **kwargs) -> True:
         """ Method to login with database"""
         pass
 
@@ -30,6 +30,7 @@ class DatabaseMain(ABC):
     @abstractmethod
     def cursor(self) -> True:
         """ Method to create a cursor"""
+        pass
 
     @abstractmethod
     def create_database(self, database_name: str) -> True:
@@ -37,11 +38,11 @@ class DatabaseMain(ABC):
         pass
 
     @abstractmethod
-    def create_table(self, table_name: str, **kwargs: dict) -> True:
+    def create_table(self, table_name: str, **kwargs) -> True:
         """ Method to create table"""
         pass
 
     @abstractmethod
-    def insert_into_table(self, table_name: str, *args: str) -> True:
+    def insert_into_table(self, table_name: str, *args) -> True:
         """ Method to insert data into table"""
         pass
