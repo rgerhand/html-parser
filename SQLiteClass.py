@@ -45,12 +45,10 @@ class SqliteClass(DatabaseMain):
 
     def insert_into_table(self, table_name: str, *args) -> SqliteClass:
         """ Insert data into table"""
-        data_to_insert = input('Podaj dane: ').split(',')
-        numbers_of_data = len(data_to_insert)
-        without_first_char = numbers_of_data - 1
-        data = '?' + ' ' + without_first_char * ',?'
         columns = ','.join(args)
-        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({data})'
+        data_to_insert = input('Podaj dane: ').split(',')
+        numbers_of_data = ','.join('?' for _ in range(len(data_to_insert)))
+        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({numbers_of_data})'
         self.cursor.execute(sql_formula, data_to_insert)
         self.connection.commit()
         return self
