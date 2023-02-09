@@ -14,12 +14,7 @@ from faker import Faker
 def generate_name(numbers_of_data: int) -> list[str]:
     """ Create a fake names"""
     faker = Faker('PL')
-    list_with_names = []
-    names = ','.join(f'{faker.name()}' for _ in range(0, numbers_of_data))
-    split_names = names.split(',')
-    for item in split_names:
-        names_without_mr_and_mrs = item.lstrip('pani ')
-        list_with_names.append(names_without_mr_and_mrs)
+    list_with_names = [faker.first_name() + ' ' + faker.last_name() for _ in range(numbers_of_data)]
 
     return list_with_names
 
@@ -28,9 +23,8 @@ def generate_address(numbers_of_data: int) -> list[str]:
     """ Create a fake address"""
     faker = Faker('PL')
     list_with_addresses = []
-    names = ','.join(f'{faker.address()}' for _ in range(0, numbers_of_data))
-    split_names = names.split(',')
-    for item in split_names:
+    addresses = [faker.address() for _ in range(numbers_of_data)]
+    for item in addresses:
         list_with_addresses.append(item.replace("\n", ", "))
 
     return list_with_addresses
