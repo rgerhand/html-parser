@@ -55,11 +55,9 @@ class MySQL(DatabaseMain):
         """ Insert data into table"""
         columns = ', '.join(args)
         data_to_insert = list(input("Insert data: ").split(','))
-        string_with_data = ''
-        for element in data_to_insert:
-            string_with_data += "\'" + element + "\'" + ','
-        without_last_char = string_with_data[:-1]
-        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({without_last_char})'
+        string_with_data = ",".join(f'\'{item}\'' for item in data_to_insert)
+        print(string_with_data)
+        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({string_with_data})'
         self.cursor.execute(sql_formula)
         self.connection.commit()
         return self
