@@ -20,8 +20,8 @@ def generate_name(numbers_of_data: int) -> list[str]:
 
 
 def generate_address(numbers_of_data: int) -> list[str]:
-    """ Create a fake address"""
+    """ Create a fake addresses"""
     faker_inst = Faker('PL')
-    addresses = [faker_inst.address().replace("\n", ", ") for _ in range(numbers_of_data)]
+    list_with_addresses = [faker_inst.address().replace("\n", ", ") for _ in range(numbers_of_data)]
 
-    return addresses
+    return list_with_addresses
