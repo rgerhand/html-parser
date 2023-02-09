@@ -1,7 +1,8 @@
 """ This file is responsible for operations executed on MySQL database"""
 from __future__ import annotations
-from typing import Union
 import mysql.connector
+from mysql.connector import MySQLConnection
+from mysql.connector.cursor import MySQLCursor
 from DataBaseHandler import DatabaseMain
 
 """
@@ -30,12 +31,12 @@ class MySQL(DatabaseMain):
         return self
 
     @property
-    def connection(self) -> Union:
+    def connection(self) -> MySQLConnection:
         """ Connection method"""
         return self._connection
 
     @property
-    def cursor(self) -> Union:
+    def cursor(self) -> MySQLCursor:
         """ Cursor to database"""
         return self.connection.cursor()
 
