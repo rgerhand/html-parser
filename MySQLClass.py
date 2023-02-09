@@ -57,7 +57,6 @@ class MySQL(DatabaseMain):
         columns = ', '.join(args)
         data_to_insert = list(input("Insert data: ").split(','))
         string_with_data = ",".join(f'\'{item}\'' for item in data_to_insert)
-        print(string_with_data)
         sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({string_with_data})'
         self.cursor.execute(sql_formula)
         self.connection.commit()
