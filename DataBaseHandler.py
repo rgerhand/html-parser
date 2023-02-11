@@ -1,5 +1,6 @@
 """ This file creates the interface for databases"""
 from abc import abstractmethod, ABC
+from __future__ import annotations
 from typing import Any
 
 """
@@ -19,7 +20,7 @@ class DatabaseMain(ABC):
     """ Database interface class"""
 
     @abstractmethod
-    def login(self, **kwargs) -> Any:
+    def login(self, **kwargs) -> DatabaseMain:
         """ Method to login with database"""
         pass
 
@@ -34,16 +35,16 @@ class DatabaseMain(ABC):
         pass
 
     @abstractmethod
-    def create_database(self, database_name: str) -> None:
+    def create_database(self, database_name: str) -> DatabaseMain:
         """ Method to create database"""
         pass
 
     @abstractmethod
-    def create_table(self, table_name: str, **kwargs) -> None:
+    def create_table(self, table_name: str, **kwargs) -> DatabaseMain:
         """ Method to create table"""
         pass
 
     @abstractmethod
-    def insert_into_table(self, table_name: str, *args) -> None:
+    def insert_into_table(self, table_name: str, *args) -> DatabaseMain:
         """ Method to insert data into table"""
         pass
