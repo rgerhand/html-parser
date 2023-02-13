@@ -49,35 +49,5 @@ def func():
     return list_with_tuple
 
 
-def sql_connection():
-    """ Database creation """
-    my_db = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        passwd='1234Pass',
-        database='pythonparser'
-    )
-
-    my_cursor = my_db.cursor()
-
-    # Database creation
-    #my_cursor.execute("CREATE DATABASE pythonparser")
-
-    # Table creation
-    #my_cursor.execute("CREATE TABLE world (name VARCHAR(255), population VARCHAR(255))")
-
-
-    # Insert data to table
-    #sql_formula = "INSERT INTO world (country, population) VALUES (%s, %s)"
-    #my_cursor.executemany(sql_formula, func())
-
-    # Print data
-    my_cursor.execute("SELECT * FROM world")
-    my_result = my_cursor.fetchall()
-
-    for row in my_result:
-        print(row)
-
 if __name__ == '__main__':
     func()
-    sql_connection()
