@@ -1,20 +1,37 @@
 """ This file is responsible for SQLite3 tests"""
 import pytest
-from SQLiteClass import *
-import sqlite3
+from unittest.mock import Mock, patch
+from SQLiteClass import SqliteClass
 
 
-@pytest.fixture()
-def database():
-    """ Method to create database"""
-    db = SqliteClass().create_database('test_database.db')
+class TestSQLite:
+    @pytest.fixture()
+    def sqlite3_object(self):
+        db = SqliteClass()
+        return db
 
-    return db
+    def test_login(self, sqlite3_object):
+        result = sqlite3_object.login()
+        assert result.assert_called()
+
+    @patch('SQLiteClass.sqlite3.connect')
+    def test_connection(self, mock_connection):
+        """ Method to test the connection """
+        obj_1 = SqliteClass()
+        result = obj_1.login()
+        assert result == mock_connection
 
 
-def test_create_database(database):
-    """ Method to test the creation of database """
-    assert isinstance(database.connection, sqlite3.Connection)
+    def test_cursor(self, sqlite3_object):
+        """ Method to test the cursor """
+        assert sqlite3_object.cursor() == sqlite3_object.connection().return_value()
+
+    @patch('SQLiteClass.sqlite3.connect')
+    def test_create_database(self, mock_create_database):
+        """ Method to test the creation of database """
+        obj_1 = SqliteClass()
+        result = obj_1.create_database('test_1')
+        mock_create_database.assert_called_once_with('test_1')
 
 
 # TODO

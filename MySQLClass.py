@@ -20,6 +20,9 @@ from DataBaseHandler import DatabaseMain
 
 class MySQL(DatabaseMain):
     """ MySQL Class"""
+    def __init__(self):
+        self._connection: MySQLConnection | None = None
+
     def login(self, host: str, user: str, passwd: str, database: str = '') -> MySQL:
         """ Login to database"""
         self._connection = mysql.connector.connect(

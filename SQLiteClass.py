@@ -53,6 +53,6 @@ class SqliteClass(DatabaseMain):
         self.connection.commit()
         return self
 
-
-sqlite1 = SqliteClass()
-sqlite1.create_database('testDB1.db').insert_into_table('table4', 'test1', 'test2')
+#
+# sqlite1 = SqliteClass()
+# sqlite1.create_database('testDB1.db').insert_into_table('table4', 'test1', 'test2')
