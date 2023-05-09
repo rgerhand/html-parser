@@ -1,6 +1,6 @@
 """ This file creates the interface for databases"""
-from abc import abstractmethod, ABC
 from __future__ import annotations
+from abc import abstractmethod, ABC
 from typing import Any
 
 """
