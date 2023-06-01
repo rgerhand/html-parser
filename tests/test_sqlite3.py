@@ -1,7 +1,7 @@
 """ This file is responsible for SQLite3 tests"""
 import pytest
 from unittest.mock import Mock, patch
-from SQLiteClass import SqliteClass
+from SQLiteClass import SqliteClass, sqlite3
 
 
 class TestSQLite:
@@ -10,35 +10,38 @@ class TestSQLite:
         db = SqliteClass()
         return db
 
-    def test_login(self, sqlite3_object):
-        result = sqlite3_object.login()
-        assert result.assert_called()
+    @pytest.fixture()
+    def sqlite3_connected(self, mocker, sqlite3_object):
+        mocker.patch('SQLiteClass.sqlite3.connect')
+        sqlite3_object.create_database('Database_1')
+        return sqlite3_object
 
-    @patch('SQLiteClass.sqlite3.connect')
-    def test_connection(self, mock_connection):
+    def test_connection(self, sqlite3_connected):
         """ Method to test the connection """
-        obj_1 = SqliteClass()
-        result = obj_1.login()
-        assert result == mock_connection
+        assert sqlite3_connected.connection == sqlite3.connect.return_value
 
-
-    def test_cursor(self, sqlite3_object):
+    def test_cursor(self, sqlite3_connected):
         """ Method to test the cursor """
-        assert sqlite3_object.cursor() == sqlite3_object.connection().return_value()
+        assert sqlite3_connected.cursor == sqlite3.connect.return_value.cursor.return_value
 
     @patch('SQLiteClass.sqlite3.connect')
-    def test_create_database(self, mock_create_database):
+    def test_create_database(self, mock_connect, sqlite3_object):
         """ Method to test the creation of database """
-        obj_1 = SqliteClass()
-        result = obj_1.create_database('test_1')
-        mock_create_database.assert_called_once_with('test_1')
+        assert sqlite3_object.create_database('Database_1') == sqlite3_object
+        mock_connect.assert_called_once_with('Database_1')
+
+#TODO add pytest.parametrize
+    def test_create_table(self, sqlite3_connected):
+        """ Method to test the creation of table """
+        assert sqlite3_connected.create_table('Table_1', 'col_1', 'col_2') == sqlite3_connected
+        sqlite3_connected.cursor.execute.assert_called_once_with('CREATE TABLE Table_1 (col_1,col_2)')
+
+#TODO delate input from basic method
+    def test_insert_table(self, sqlite3_object):
+        """ Method to test the creation of database """
+        sqlite3_object.insert_into_table('Table_1', 'col_1', 'col_2')
 
 
-# TODO
-def test_create_table(database):
-    """ Method to test the creation of table """
-    database.create_table('test_table', 'test_kol_1', 'test_kol_2')
-    tables_names = database.cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' ''')
-    tables = tables_names.fetchall()
-    print(tables)
+
+
 
