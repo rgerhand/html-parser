@@ -43,16 +43,16 @@ class SqliteClass(DatabaseMain):
         self.cursor.execute(f"CREATE TABLE {table_name} ({columns})")
         return self
 
-    def insert_into_table(self, table_name: str, *args) -> SqliteClass:
+    def insert_into_table(self, table_name: str, **kwargs) -> SqliteClass:
         """ Insert data into table"""
-        columns = ','.join(args)
-        data_to_insert = input('Podaj dane: ').split(',')
-        numbers_of_data = ','.join('?' for _ in range(len(data_to_insert)))
-        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({numbers_of_data})'
-        self.cursor.execute(sql_formula, data_to_insert)
+        numbers_of_value = len(kwargs.values())
+        marks = '?' * numbers_of_value
+        sql_formula = f"INSERT INTO {table_name} ({', '.join(kwargs.keys())}) VALUES ({', '.join(marks)})"
+        date_to_insert = ','.join(kwargs.values()).split(',')
+        self.cursor.execute(sql_formula, date_to_insert)
         self.connection.commit()
         return self
 
-#
-# sqlite1 = SqliteClass()
-# sqlite1.create_database('testDB1.db').insert_into_table('table4', 'test1', 'test2')
+
+#sqlite1 = SqliteClass()
+#sqlite1.create_database('new_db.db').insert_into_table('table_1', col_1='test_55', col_2='test_55')
