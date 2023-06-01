@@ -55,17 +55,19 @@ class MySQL(DatabaseMain):
         self.cursor.execute(sql_formula)
         return self
 
-    def insert_into_table(self, table_name: str, *args) -> MySQL:
+    def insert_into_table(self, table_name: str, **kwargs) -> MySQL:
         """ Insert data into table"""
-        columns = ', '.join(args)
-        data_to_insert = list(input("Insert data: ").split(','))
-        string_with_data = ",".join(f'\'{item}\'' for item in data_to_insert)
-        sql_formula = f'INSERT INTO {table_name} ({columns}) VALUES ({string_with_data})'
+        data = []
+        for value in kwargs.values():
+            data.append(f'{value}' if isinstance(value, (int, float)) else f"'{value}'")
+        sql_formula = f"INSERT INTO {table_name} ({', '.join(kwargs.keys())}) VALUES ({', '.join(data)})"
+        print(sql_formula)
         self.cursor.execute(sql_formula)
         self.connection.commit()
         return self
 
 
 mysql1 = MySQL()
-mysql1.login(host='localhost', user='root', passwd='1234Pass', database='input').insert_into_table('table1', 'name',
-                                                                                                   'surname')
+mysql1.login(host='localhost', user='root', passwd='1234Pass', database='input').insert_into_table('table7',
+                                                                                                   col_1='ola',
+                                                                                                   col_2='m')
