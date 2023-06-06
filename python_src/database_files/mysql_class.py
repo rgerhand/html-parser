@@ -3,7 +3,7 @@ from __future__ import annotations
 import mysql.connector
 from mysql.connector import MySQLConnection
 from mysql.connector.cursor import MySQLCursor
-from DataBaseHandler import DatabaseMain
+from python_src.database_files.data_base_handler import DatabaseMain
 
 """
     MySQL class
@@ -19,47 +19,49 @@ from DataBaseHandler import DatabaseMain
 
 
 class MySQL(DatabaseMain):
-    """ MySQL Class"""
+    """MySQL Class"""
+
     def __init__(self):
         self._connection: MySQLConnection | None = None
 
-    def login(self, host: str, user: str, passwd: str, database: str = '') -> MySQL:
-        """ Login to database"""
+    def login(self, host: str, user: str, passwd: str, database: str = "") -> MySQL:
+        """Login to database"""
         self._connection = mysql.connector.connect(
-            host=host,
-            user=user,
-            passwd=passwd,
-            database=database
-            )
+            host=host, user=user, passwd=passwd, database=database
+        )
         return self
 
     @property
     def connection(self) -> MySQLConnection:
-        """ Connection method"""
+        """Connection method"""
         return self._connection
 
     @property
     def cursor(self) -> MySQLCursor:
-        """ Cursor to database"""
+        """Cursor to database"""
         return self.connection.cursor()
 
     def create_database(self, database_name: str) -> MySQL:
-        """ Create the database"""
+        """Create the database"""
         self.cursor.execute(f"CREATE DATABASE {database_name}")
         return self
 
     def create_table(self, table_name: str, **kwargs) -> MySQL:
-        """ Create a table with unlimited number of  columns"""
-        columns_with_type = ','.join(f'{column} {column_type}' for column, column_type in kwargs.items())
-        sql_formula = f'CREATE TABLE {table_name} ({columns_with_type})'
+        """Create a table with unlimited number of  columns"""
+        columns_with_type = ", ".join(
+            f"{column} {column_type}" for column, column_type in kwargs.items()
+        )
+        print(columns_with_type)
+        sql_formula = f"CREATE TABLE {table_name} ({columns_with_type})"
+        print(sql_formula)
         self.cursor.execute(sql_formula)
         return self
 
     def insert_into_table(self, table_name: str, **kwargs) -> MySQL:
-        """ Insert data into table"""
+        """Insert data into table"""
         data = []
         for value in kwargs.values():
-            data.append(f'{value}' if isinstance(value, (int, float)) else f"'{value}'")
+            data.append(f"{value}" if isinstance(value, (int, float)) else f"'{value}'")
         sql_formula = f"INSERT INTO {table_name} ({', '.join(kwargs.keys())}) VALUES ({', '.join(data)})"
         print(sql_formula)
         self.cursor.execute(sql_formula)
@@ -68,6 +70,6 @@ class MySQL(DatabaseMain):
 
 
 mysql1 = MySQL()
-mysql1.login(host='localhost', user='root', passwd='1234Pass', database='input').insert_into_table('table7',
-                                                                                                   col_1='ola',
-                                                                                                   col_2='m')
+mysql1.login(
+    host="localhost", user="root", passwd="1234Pass", database="input"
+).insert_into_table("table7", col_1="ola", col_2="m")
