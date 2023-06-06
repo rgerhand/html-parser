@@ -1,5 +1,5 @@
 """ This file is responsible for faker_generator tests"""
-from python_src.utils.faker_generator import generate_name, generate_address
+from python_src.utils.faker_generator import generate_address, generate_name
 
 
 def test_generate_name():

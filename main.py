@@ -1,8 +1,9 @@
 """ Import modules """
 import re
+
+import mysql.connector
 import requests
 from bs4 import BeautifulSoup
-import mysql.connector
 
 URL = "https://www.worldometers.info/geography/alphabetical-list-of-countries/"
 

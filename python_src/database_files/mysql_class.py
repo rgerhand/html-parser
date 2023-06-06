@@ -1,8 +1,10 @@
 """ This file is responsible for operations executed on MySQL database"""
 from __future__ import annotations
+
 import mysql.connector
 from mysql.connector import MySQLConnection
 from mysql.connector.cursor import MySQLCursor
+
 from python_src.database_files.data_base_handler import DatabaseMain
 
 """

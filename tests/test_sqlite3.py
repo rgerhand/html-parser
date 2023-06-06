@@ -1,6 +1,8 @@
 """ This file is responsible for SQLite3 tests"""
-import pytest
 from unittest.mock import patch
+
+import pytest
+
 from python_src.database_files.sqlite_class import SqliteClass, sqlite3
 
 

@@ -1,6 +1,8 @@
 """ This file is responsible for operations executed on sqlite3 database"""
 from __future__ import annotations
+
 import sqlite3
+
 from python_src.database_files.data_base_handler import DatabaseMain
 
 """

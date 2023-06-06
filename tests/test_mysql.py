@@ -1,6 +1,8 @@
 """ This file is responsible for mySQL tests"""
-import pytest
 from unittest.mock import patch
+
+import pytest
+
 from python_src.database_files.mysql_class import MySQL
 
 # pytest.markparam
