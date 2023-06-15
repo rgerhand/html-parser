@@ -5,61 +5,72 @@ import sqlite3
 
 from python_src.database_files.data_base_handler import DatabaseMain
 
-"""
-    SqliteClass class
-        
-        Methods:
-            - login()               - responsible for login to database
-            - connection()          - responsible for connecting with database
-            - cursor()              - responsible for creating cursor to database
-            - create_database()     - responsible for creating database
-            - create_table()        - responsible for creating table in database
-            - insert_into_table()   - responsible for insert data into table
-"""
-
 
 class SqliteClass(DatabaseMain):
-    """SqliteClass class #TODO
-    Methods:
-        - login()               - responsible for login to database
-        - connection()          - responsible for connecting with database
-        - cursor()              - responsible for creating cursor to database
-        - create_database()     - responsible for creating database
-        - create_table()        - responsible for creating table in database
-        - insert_into_table()   - responsible for insert data into table
+    """A class used to manage sqlite3 database.
+
+    The class contains all the necessary methods to manage a simple database.
     """
 
     def login(self, **kwargs) -> True:
-        """Login to database"""
+        """Login to database.
+
+        :param kwargs:
+        :return: True
+        """
+
         pass
 
     @property
     def connection(self) -> sqlite3.Connection:
-        """Connection method"""
+        """Connection method.
+
+        :return: sqlite3.Connection
+        """
+
         return self._con
 
     @property
     def cursor(self) -> sqlite3.Cursor:
-        """Cursor to database"""
+        """Cursor to database.
+
+        Cursor function allows to execute sql commands
+
+        :return: sqlite3.Cursor
+        """
+
         return self.connection.cursor()
 
     def create_database(self, database_name: str) -> SqliteClass:
+        """Create a new database.
+
+        :param database_name: name of database
+        :return: SqliteClass object
         """
 
-        :param database_name:
-        :return:
-        """
         self._con = sqlite3.connect(database_name)
         return self
 
     def create_table(self, table_name: str, *args) -> SqliteClass:
-        """Create a table with unlimited number of  columns"""
+        """Create a table with unlimited number of columns.
+
+        :param table_name: name of table
+        :param args: name of columns
+        :return: SqliteClass object
+        """
+
         columns = ",".join(args)
         self.cursor.execute(f"CREATE TABLE {table_name} ({columns})")
         return self
 
     def insert_into_table(self, table_name: str, **kwargs) -> SqliteClass:
-        """Insert data into table"""
+        """Insert data into table.
+
+        :param table_name: name of table
+        :param kwargs: column names with values
+        :return: SqliteClass object
+        """
+
         numbers_of_value = len(kwargs.values())
         marks = "?" * numbers_of_value
         sql_formula = f"INSERT INTO {table_name} ({', '.join(kwargs.keys())}) VALUES ({', '.join(marks)})"
@@ -69,5 +80,6 @@ class SqliteClass(DatabaseMain):
         return self
 
 
-# sqlite1 = SqliteClass()
-# sqlite1.create_database('new_db.db').insert_into_table('table_1', col_1='test_55', col_2='test_55')
+if __name__ == '__main__':
+    sqlite1 = SqliteClass()
+    sqlite1.create_database('new_db.db').insert_into_table('table_1', col_1='test_55', col_2='test_55')

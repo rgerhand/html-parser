@@ -12,7 +12,12 @@ from faker import Faker
 
 
 def generate_name(numbers_of_data: int) -> list[str]:
-    """Create a fake names"""
+    """Create a fake names.
+
+    :param numbers_of_data: numbers of data you can generate
+    :return: list with first name and last name
+    """
+
     faker_inst = Faker("PL")
     list_with_names = [
         f"{faker_inst.first_name()} {faker_inst.last_name()}"
@@ -23,7 +28,12 @@ def generate_name(numbers_of_data: int) -> list[str]:
 
 
 def generate_address(numbers_of_data: int) -> list[str]:
-    """Create a fake addresses"""
+    """Create a fake addresses
+
+    :param numbers_of_data: numbers of data you can generate
+    :return: list with addresses
+    """
+
     faker_inst = Faker("PL")
     list_with_addresses = [
         faker_inst.address().replace("\n", ", ") for _ in range(numbers_of_data)
